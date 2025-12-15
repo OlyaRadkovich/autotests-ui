@@ -48,8 +48,8 @@ class CoursesListPage(BasePage):
             self,
             index: int,
             title: str,
-            max_score: int,
-            min_score: int,
+            max_score: str,
+            min_score: str,
             estimated_time: str
     ):
         expect(self.course_image.nth(index)).to_be_visible()
