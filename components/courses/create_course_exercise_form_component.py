@@ -15,7 +15,7 @@ class CreateCourseExersiceFormComponent(BaseComponent):
         )
 
         self.subtitle = Text(
-            page, 'create-course-exercise-{index}-box-toolbar-subtitle-text', 'Exercise subtitle'
+            page, 'create-course-exercise-{index}-box-toolbar-subtitle-text', 'Subtitle'
         )
         self.title_input = Input(page, 'create-course-exercise-form-title-{index}-input', 'Title')
         self.description_input = Input(
