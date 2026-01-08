@@ -1,13 +1,30 @@
-import time
-
 import pytest
+import allure
 from pages.courses.courses_list_page import CoursesListPage
 from pages.courses.create_course_page import CreateCoursePage
-
+from tools.allure.tags import AllureTag
+from tools.allure.epics import AllureEpic
+from tools.allure.features import AllureFeature
+from tools.allure.stories import AllureStory
 
 @pytest.mark.courses
 @pytest.mark.regression
+@allure.tag(AllureTag.REGRESSION, AllureTag.COURSES)
+@allure.epic(AllureEpic.LMS)
+@allure.feature(AllureFeature.COURSES)
+@allure.story(AllureStory.COURSES)
 class TestCourses:
+    @allure.title('Check for displaying an empty courses list')
+    def test_empty_courses_list(self, courses_list_page: CoursesListPage):
+        courses_list_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses')
+
+        courses_list_page.navbar.check_visible('Tester')
+        courses_list_page.sidebar.check_visible()
+
+        courses_list_page.toolbar_view.check_visible()
+        courses_list_page.check_visible_empty_view()
+
+    @allure.title('Create a course')
     def test_create_course(self, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
         create_course_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create')
 
@@ -36,6 +53,7 @@ class TestCourses:
             index=0, title='Playwright', max_score='100', min_score='10', estimated_time='2 weeks',
         )
 
+    @allure.title('Edit a course')
     def test_edit_course(self, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
         create_course_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create')
         create_course_page.image_upload_widget.upload_preview_image('./testdata/files/image_2.png')
@@ -60,12 +78,3 @@ class TestCourses:
         courses_list_page.course_view.check_visible(
             index=0, title='Allure', estimated_time='1 week', max_score='50', min_score='10'
         )
-
-    def test_empty_courses_list(self, courses_list_page: CoursesListPage):
-        courses_list_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses')
-
-        courses_list_page.navbar.check_visible('Tester')
-        courses_list_page.sidebar.check_visible()
-
-        courses_list_page.toolbar_view.check_visible()
-        courses_list_page.check_visible_empty_view()
