@@ -21,7 +21,7 @@ def page(request: SubRequest, playwright: Playwright) -> Generator[Page, None, N
 
 @pytest.fixture(scope="session")
 def initialize_browser_state(playwright: Playwright, browser_type: Browser):
-    browser = playwright[browser_type].launch(headless=False)
+    browser = playwright[browser_type.name].launch(headless=False)
     context = browser.new_context(base_url=settings.get_base_url())
     page = context.new_page()
 
