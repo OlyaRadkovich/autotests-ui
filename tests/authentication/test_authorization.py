@@ -10,6 +10,7 @@ from pages.dashboard.dashboard_page import DashboardPage
 from tools.allure.epics import AllureEpic
 from tools.allure.features import AllureFeature
 from tools.allure.stories import AllureStory
+
 from tools.routes import AppRoute
 
 
@@ -23,6 +24,7 @@ from tools.routes import AppRoute
 @allure.suite(AllureFeature.AUTHENTICATION)
 @allure.sub_suite(AllureStory.AUTHORIZATION)
 class TestAuthorization:
+    @pytest.mark.xdist_group(name="authorization-group")
     @allure.tag(AllureTag.USER_LOGIN)
     @allure.title('User login with correct email and password')
     @allure.severity(Severity.BLOCKER)
@@ -55,6 +57,7 @@ class TestAuthorization:
         ('  ', 'password'): 'Empty email, invalid password'
     }
 
+    @pytest.mark.xdist_group(name="authorization-group")
     @pytest.mark.parametrize('email, password', creds.keys(), ids=creds.values())
     @allure.tag(AllureTag.USER_LOGIN)
     @allure.title('User login with wrong email or password')
