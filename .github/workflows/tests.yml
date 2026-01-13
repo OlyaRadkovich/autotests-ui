@@ -42,18 +42,18 @@ jobs:
       - name: install Playwright Browsers
         run: poetry run playwright install --with-deps
 
-      - name: Run Playwright tests with pytest and generate Allure result
+      - name: Run Playwright tests with pytest and generate Allure results
         run: poetry run pytest -m "regression" --alluredir=./allure-results --numprocesses=2
 
       - name: Get Allure history
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         if: always()
         continue-on-error: true
         with:
           ref: gh-pages
           path: gh-pages
 
-      - name: Allure Report action from marketplace
+      - name: Generates Allure Report with history
         uses: simple-elf/allure-report-action@master
         if: always()
         with:
@@ -61,8 +61,9 @@ jobs:
           allure_history: allure-history
 
       - name: Deploy report to Guthub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        env:
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
