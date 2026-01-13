@@ -1,4 +1,11 @@
 .venv/
 __pycache__/
 .idea/
-/browser-state.json
+
+allure-results
+allure-report
+*.html
+*.json
+
+videos
+tracing
