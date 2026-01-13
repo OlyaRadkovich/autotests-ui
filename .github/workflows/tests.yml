@@ -54,11 +54,17 @@ jobs:
           path: gh-pages
 
       - name: Generates Allure Report with history
-        uses: simple-elf/allure-report-action@v1.7
+        uses: simple-elf/allure-report-action@master
         if: always()
         with:
           allure_results: allure-results
           allure_history: allure-history
+
+      - name: Debug folder structure
+        run: |
+          ls -R
+          echo "Checking allure-history content:"
+          ls -la allure-history || echo "Folder allure-history NOT FOUND"
 
       - name: Deploy report to Guthub Pages
         if: always()
