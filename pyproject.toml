@@ -3,7 +3,7 @@ name = "autotests-ui"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Olya Radkovich",email = ""}
+    {name = "Olya Radkovich",email = "radkovich@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.12"
